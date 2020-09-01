@@ -1,21 +1,42 @@
 @import url("./assets/fonts/Euclid Circular B/stylesheet.css");
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   width: 1440px;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
 }
 
 header {
   height: 105px;
   background-color: #F5F5F5;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 
 .header__logo {
-
+  display: flex;
+  align-items: center;
+  margin-left: 165px;
 }
 
 .header__logo__text {
   font-family: Euclid Circular B;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  margin-left: 16px;
+  padding-bottom: 5px;
+  line-height: 41px;
+}
+
+.header__btn__close {
+  margin-right: 165px;
 }
