@@ -2,10 +2,19 @@
 
 * {
   box-sizing: border-box;
+  font-family: Euclid Circular B;
+}
+
+html,
+body {
+  height: 100%;
 }
 
 body {
-  width: 1440px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 a {
@@ -21,22 +30,244 @@ header {
   align-items: center;
 }
 
-.header__logo {
+.wrapper {
   display: flex;
-  align-items: center;
-  margin-left: 165px;
+  flex-direction: column;
+  height: 100%;
 }
 
-.header__logo__text {
-  font-family: Euclid Circular B;
+
+
+.logo {
+  display: flex;
+  
+}
+
+.logo__text {
   font-style: normal;
   font-weight: 500;
   font-size: 32px;
   margin-left: 16px;
-  padding-bottom: 5px;
+  margin-top: 18px;
   line-height: 41px;
+}
+
+.header__start {
+  display: flex;
+  align-items: center;
+  margin-right: 165px;
+}
+
+.header__start__novisibility {
+  display: none;
+}
+
+.header__start__button {
+  margin-left: 32px;
+  background: #FFDF31;
+  ;
+  background-image: -webkit-linear-gradient(top, #FFDF31; , #FFDF31; );
+  background-image: -moz-linear-gradient(top, #FFDF31; , #FFDF31; );
+  background-image: -ms-linear-gradient(top, #FFDF31; , #FFDF31; );
+  background-image: -o-linear-gradient(top, #FFDF31; , #FFDF31; );
+  background-image: linear-gradient(to bottom, #FFDF31; , #FFDF31; );
+  -webkit-border-radius: 8;
+  -moz-border-radius: 8;
+  border-radius: 8px;
+  font-family: Arial;
+  border: none;
+  color: #000000;
+  font-size: 18px;
+  text-hover: #ffffff;
+  padding: 12px 16px 12px 16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.header__start__button:hover {
+  color: #ffffff;
+  background: #ffd500;
+  background-image: -webkit-linear-gradient(top, #ffd500, #ffd500);
+  background-image: -moz-linear-gradient(top, #ffd500, #ffd500);
+  background-image: -ms-linear-gradient(top, #ffd500, #ffd500);
+  background-image: -o-linear-gradient(top, #ffd500, #ffd500);
+  background-image: linear-gradient(to bottom, #ffd500, #ffd500);
+  text-decoration: none;
+  border: none;
+}
+
+.header__start__number {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 23px;
 }
 
 .header__btn__close {
   margin-right: 165px;
+}
+
+
+
+
+
+
+footer {
+  height: 235px;
+  width: 100%;
+  background-color: #F5F5F5;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.footer__share {
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 8px;
+  
+}
+
+
+
+
+
+
+
+
+
+
+.content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 125px;
+}
+
+.container {
+
+  margin-left: 125px;
+  margin-bottom: 72px;
+  flex: 1 0 auto;
+}
+
+.content__block {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.content__title {
+  font-family: Euclid Circular B;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 72px;
+  line-height: 66px;
+}
+
+.content__form {
+  width: 540px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+}
+
+.content__form label {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: #000000;
+
+}
+
+.content__form__together_short {
+  display: flex;
+}
+
+.content__form__short_element {
+  width: 50%;
+  margin-right: 30px;
+}
+
+.content__form__short_element input,
+select {
+  margin-top: 12px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background: #F5F5F5;
+  border: none;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.content__form__large_element {
+  width: 100%;
+}
+
+.content__form__large_element input {
+  display: block;
+  margin-top: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background: #F5F5F5;
+  border: none;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+
+.content__form__large_element textarea {
+  display: block;
+  resize: none;
+  background: #F5F5F5;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 10px;
+  margin-top: 12px;
+  width: 100%;
+}
+
+.content__info {
+  margin-right: 125px;
+  width: 35%;
+}
+
+.content__info__title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 41px;
+}
+
+.content__info__words {
+  width: 90%;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 23px;
+  font-size: 18px;
+  padding: 0 0 10px 0;
+
+}
+
+.content__info__button {
+  width: 100%;
+  margin-top: 24px;
+  background: #F5F5F5;
+  border-radius: 8px;
+  border: none;
+  padding: 22px 125px 21px 125px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 30px;
 }
