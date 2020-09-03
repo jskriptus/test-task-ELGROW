@@ -6,7 +6,8 @@ const Footer = () => {
         <footer>
             <div className="content">
                 <div className="footer__share">
-                    <Logo />
+                    <Logo style={{marginLeft: '10px'}} />
+                    <h2 className="footer__share_h2">поделиться</h2>
                 </div>
             </div>
         </footer>

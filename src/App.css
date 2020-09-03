@@ -40,7 +40,7 @@ header {
 
 .logo {
   display: flex;
-  
+
 }
 
 .logo__text {
@@ -55,11 +55,6 @@ header {
 .header__start {
   display: flex;
   align-items: center;
-  margin-right: 165px;
-}
-
-.header__start__novisibility {
-  display: none;
 }
 
 .header__start__button {
@@ -103,9 +98,7 @@ header {
   line-height: 23px;
 }
 
-.header__btn__close {
-  margin-right: 165px;
-}
+
 
 
 
@@ -122,10 +115,16 @@ footer {
 }
 
 .footer__share {
+  display: flex;
   width: 100%;
   background: #FFFFFF;
   border-radius: 8px;
-  
+}
+
+.footer__share_h2 {
+  display: flex;
+  font-size: 32px;
+  line-height: 41px;
 }
 
 
@@ -143,10 +142,11 @@ footer {
   justify-content: space-between;
   align-items: center;
   margin-left: 125px;
+  margin-right: 125px;
 }
 
 .container {
-
+  margin-right: 125px;
   margin-left: 125px;
   margin-bottom: 72px;
   flex: 1 0 auto;
@@ -190,15 +190,22 @@ footer {
 
 .content__form__short_element {
   width: 50%;
+}
+
+.ident {
   margin-right: 30px;
 }
 
-.content__form__short_element input,
-select {
+
+.title {
+  display: flex;
+  align-items: center;
+  height: 24px;
+}
+
+.short__valid {
   margin-top: 12px;
-  display: block;
   width: 100%;
-  box-sizing: border-box;
   border-radius: 8px;
   background: #F5F5F5;
   border: none;
@@ -207,15 +214,44 @@ select {
   font-size: 14px;
 }
 
+.short__invalid {
+  margin-top: 12px;
+  width: 100%;
+  border-radius: 8px;
+  background: #FF6666;
+  border: none;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.content__form__short_element__light {
+  width: 50%;
+  display: block;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
 .content__form__large_element {
   width: 100%;
 }
 
-.content__form__large_element input {
-  display: block;
+
+.large__invalid {
   margin-top: 12px;
   width: 100%;
-  box-sizing: border-box;
+  border-radius: 8px;
+  background: #FF6666;
+  border: none;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.large__valid {
+  margin-top: 12px;
+  width: 100%;
   border-radius: 8px;
   background: #F5F5F5;
   border: none;
@@ -236,8 +272,22 @@ select {
   width: 100%;
 }
 
+.content__form__gender {
+  display: flex;
+  height: 80%;
+}
+
+.content__form__gender_radio_block {
+  margin-right: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.content__form__gender_radio_block input {
+  margin-right: 12px;
+}
+
 .content__info {
-  margin-right: 125px;
   width: 35%;
 }
 

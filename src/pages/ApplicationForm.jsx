@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import ReCAPTCHA from 'react-google-recaptcha';
-import uploadSvg from '../assets/img/upload.svg';
-import { Select } from '../components/Form';
+import verif from '../assets/img/verif.svg';
 
 const ApplicationForm = () => {
-    const { register, errors, handleSubmit } = useForm({
+    const { register, errors, handleSubmit, formState } = useForm({
         mode: 'onChange',
+        reValidateMode: 'onChange',
     });
 
     const onSubmit = (data) => {
@@ -22,6 +22,8 @@ const ApplicationForm = () => {
         margin: '2px',
     };
 
+    const { dirtyFields } = formState;
+    const [value, setValue] = useState('');
     return (
         <div className="container">
             <h1 className="content__title">Работа твоей мечты</h1>
@@ -29,17 +31,35 @@ const ApplicationForm = () => {
                 <div className="content__form">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <section className="content__form__large_element">
-                            <label forhtml="profession">Вакансия *</label>
-                            <Select id="profession" name="profession" options={['товаровед']} />
+                            <div className="title">
+                                <label forhtml="profession">Вакансия *</label>
+                                <span>
+                                    {dirtyFields.profession ? <img src={verif} alt="" /> : null}
+                                </span>
+                            </div>
+                            <select
+                                name="profession"
+                                className={errors.profession ? 'large__invalid' : 'large__valid'}
+                                register={[('required': 'Обязательное поле')]}>
+                                <option value=" "> </option>
+                                <option value="товаровед">товаровед</option>
+                            </select>
+                            {errors.profession && errors.profession.type === 'required' && (
+                                <p style={errorStyle}>{errors.profession.message}</p>
+                            )}
                         </section>
 
                         <section className="content__form__large_element">
-                            <label forhtml="FIO">ФИО *</label>
+                            <div className="title">
+                                <label forhtml="FIO">ФИО *</label>
+                                <span>{dirtyFields.FIO ? <img src={verif} alt="" /> : null}</span>
+                            </div>
                             <input
                                 type="text"
                                 placeholder="Фамилия Имя Отчество"
                                 name="FIO"
                                 id="FIO"
+                                className={errors.FIO ? 'large__invalid' : 'large__valid'}
                                 ref={register({ required: 'Обязательное поле' })}
                             />
                             {errors.FIO && errors.FIO.type === 'required' && (
@@ -47,14 +67,18 @@ const ApplicationForm = () => {
                             )}
                         </section>
                         <div className="content__form__together_short">
-                            <section className="content__form__short_element">
-                                <label forhtml="DOB">Дата рождения *</label>
+                            <section className="content__form__short_element ident">
+                                <div className="title">
+                                    <label forhtml="DOB">Дата рождения *</label>
+
+                                    {dirtyFields.DOB ? <img src={verif} alt="" /> : null}
+                                </div>
                                 <input
-                                    className="content__form__short_element_input"
                                     type="text"
                                     placeholder="28.07.2002"
                                     name="DOB"
                                     id="DOB"
+                                    className={errors.DOB ? 'short__invalid' : 'short__valid'}
                                     ref={register({ required: 'Обязательное поле' })}
                                 />
                                 {errors.DOB && errors.DOB.type === 'required' && (
@@ -62,15 +86,18 @@ const ApplicationForm = () => {
                                 )}
                             </section>
 
-                            <section className="content__form__short_element">
-                                <label>Пол</label>
+                            <section className="content__form__short_element__light">
+                                <div className="title">
+                                    <label>Пол</label>
+                                    {dirtyFields.gender ? <img src={verif} alt="" /> : null}
+                                </div>
                                 <div className="content__form__gender">
                                     <div className="content__form__gender_radio_block">
                                         <input
                                             name="gender"
                                             type="radio"
                                             value="man"
-                                            ref={register}
+                                            ref={register({ required: 'Обязательное поле' })}
                                             id="man"
                                         />
                                         <label forhtml="man">мужской</label>
@@ -80,7 +107,7 @@ const ApplicationForm = () => {
                                             name="gender"
                                             type="radio"
                                             value="woman"
-                                            ref={register}
+                                            ref={register({ required: 'Обязательное поле' })}
                                             id="woman"
                                         />
                                         <label htmlFor="woman">женский</label>
@@ -88,17 +115,30 @@ const ApplicationForm = () => {
                                 </div>
                             </section>
                         </div>
-                        <div className="content__form__together_short">
-                            <section className="content__form__short_element">
-                                <label forhtml="phone">Контактный телефон *</label>
+                        <div className="content__form__together_short ">
+                            <section className="content__form__short_element ident">
+                                <div className="title">
+                                    <label forhtml="phone">Контактный телефон *</label>
+                                    {dirtyFields.phone ? <img src={verif} alt="" /> : null}
+                                </div>
                                 <input
-                                    className="content__form__short_element_input"
                                     type="text"
                                     id="phone"
                                     placeholder="+7 ("
                                     name="phone"
-                                    ref={register({ required: 'Обязательное поле' })}
+                                    className={errors.phone ? 'short__invalid' : 'short__valid'}
+                                    ref={register({
+                                        required: {
+                                            value: true,
+                                            message: 'the email field is required',
+                                        },
+                                        pattern: {
+                                            value: /^((\+7|7|8)+([0-9]){10})$|\b\d{3}[-.]?\d{3}[-.]?\d{4}d/,
+                                            message: 'Enter a valid e-mail address',
+                                        },
+                                    })}
                                 />
+
                                 {errors.phone && errors.phone.type === 'required' && (
                                     <p style={errorStyle}>{errors.phone.message}</p>
                                 )}
@@ -106,13 +146,27 @@ const ApplicationForm = () => {
 
                             <section className="content__form__short_element">
                                 <label forhtml="email">Электронная почта</label>
+                                {dirtyFields.email ? <img src={verif} alt="" /> : null}
                                 <input
-                                    className="content__form__short_element_input"
                                     type="text"
                                     id="email"
                                     placeholder="qwe@qwe.com"
                                     name="email"
+                                    className={errors.email ? 'short__invalid' : 'short__valid'}
+                                    ref={register({
+                                        required: {
+                                            value: true,
+                                            message: 'the email field is required',
+                                        },
+                                        pattern: {
+                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                            message: 'Enter a valid e-mail address',
+                                        },
+                                    })}
                                 />
+                                {errors.email && (
+                                    <p style={errorStyle}>{errors.email.message}</p>
+                                )}
                             </section>
                         </div>
                         <section className="content__form__large_element">
