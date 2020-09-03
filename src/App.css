@@ -128,7 +128,10 @@ footer {
 }
 
 
-
+.homepage {
+  margin-top: 300px;
+  margin-bottom: 300px;
+}
 
 
 
@@ -211,7 +214,7 @@ footer {
   border: none;
   padding: 10px 15px;
   margin-bottom: 10px;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 .short__invalid {
@@ -222,7 +225,7 @@ footer {
   border: none;
   padding: 10px 15px;
   margin-bottom: 10px;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 .content__form__short_element__light {
@@ -246,7 +249,7 @@ footer {
   border: none;
   padding: 10px 15px;
   margin-bottom: 10px;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 .large__valid {
@@ -257,7 +260,7 @@ footer {
   border: none;
   padding: 10px 15px;
   margin-bottom: 10px;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 

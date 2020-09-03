@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { Form, InputLarge } from '../components/Form';
+
 import verif from '../assets/img/verif.svg';
 
 const ApplicationForm = () => {
-    const { register, errors, handleSubmit, formState } = useForm({
+    const { register, errors, formState } = useForm({
         mode: 'onChange',
         reValidateMode: 'onChange',
     });
@@ -19,17 +21,28 @@ const ApplicationForm = () => {
 
     const errorStyle = {
         color: '#FF6666',
-        margin: '2px',
+        fontSize: '14px',
+        lineHeight: '18px',
+        margin: 0,
     };
 
     const { dirtyFields } = formState;
-    const [value, setValue] = useState('');
+
     return (
         <div className="container">
             <h1 className="content__title">Работа твоей мечты</h1>
             <div className="content__block">
                 <div className="content__form">
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <Form onSubmit={onSubmit}>
+                        <InputLarge
+                            type="text"
+                            title="ФИО *"
+                            placeholder="Фамилия Имя Отчество"
+                            name="fio"
+                            id="fio"
+                            rules={{'required': 'Обязательное поле'}}
+                        />
+
                         <section className="content__form__large_element">
                             <div className="title">
                                 <label forhtml="profession">Вакансия *</label>
@@ -70,7 +83,6 @@ const ApplicationForm = () => {
                             <section className="content__form__short_element ident">
                                 <div className="title">
                                     <label forhtml="DOB">Дата рождения *</label>
-
                                     {dirtyFields.DOB ? <img src={verif} alt="" /> : null}
                                 </div>
                                 <input
@@ -78,6 +90,14 @@ const ApplicationForm = () => {
                                     placeholder="28.07.2002"
                                     name="DOB"
                                     id="DOB"
+                                    onKeyUp={(e) => {
+                                        const value = e.target.value;
+                                        if (value.match(/^\d{2}$/) !== null) {
+                                            e.target.value = value + '/';
+                                        } else if (value.match(/^\d{2}\/\d{2}$/) !== null) {
+                                            e.target.value = value + '/';
+                                        }
+                                    }}
                                     className={errors.DOB ? 'short__invalid' : 'short__valid'}
                                     ref={register({ required: 'Обязательное поле' })}
                                 />
@@ -119,7 +139,9 @@ const ApplicationForm = () => {
                             <section className="content__form__short_element ident">
                                 <div className="title">
                                     <label forhtml="phone">Контактный телефон *</label>
-                                    {dirtyFields.phone ? <img src={verif} alt="" /> : null}
+                                    {dirtyFields.phone && !errors.phone ? (
+                                        <img src={verif} alt="" />
+                                    ) : null}
                                 </div>
                                 <input
                                     type="text"
@@ -130,23 +152,24 @@ const ApplicationForm = () => {
                                     ref={register({
                                         required: {
                                             value: true,
-                                            message: 'the email field is required',
+                                            message: 'обязательное поле',
                                         },
                                         pattern: {
                                             value: /^((\+7|7|8)+([0-9]){10})$|\b\d{3}[-.]?\d{3}[-.]?\d{4}d/,
-                                            message: 'Enter a valid e-mail address',
+                                            message: 'поле заполнено не правильно',
                                         },
                                     })}
                                 />
 
-                                {errors.phone && errors.phone.type === 'required' && (
-                                    <p style={errorStyle}>{errors.phone.message}</p>
-                                )}
+                                {errors.phone && <p style={errorStyle}>{errors.phone.message}</p>}
                             </section>
 
                             <section className="content__form__short_element">
                                 <label forhtml="email">Электронная почта</label>
-                                {dirtyFields.email ? <img src={verif} alt="" /> : null}
+
+                                {dirtyFields.email && !errors.email ? (
+                                    <img src={verif} alt="" />
+                                ) : null}
                                 <input
                                     type="text"
                                     id="email"
@@ -159,14 +182,13 @@ const ApplicationForm = () => {
                                             message: 'the email field is required',
                                         },
                                         pattern: {
-                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                                            message: 'Enter a valid e-mail address',
+                                            value: /^\S+@\S+$/i,
+                                            message: 'поле заполнено не корректно',
                                         },
                                     })}
                                 />
-                                {errors.email && (
-                                    <p style={errorStyle}>{errors.email.message}</p>
-                                )}
+                                {console.log(errors)}
+                                {errors.email && <p style={errorStyle}>{errors.email.message}</p>}
                             </section>
                         </div>
                         <section className="content__form__large_element">
@@ -197,7 +219,7 @@ const ApplicationForm = () => {
                         </section>
 
                         <input type="submit" />
-                    </form>
+                    </Form>
                 </div>
                 <div className="content__info">
                     <h2 className="content__info__title">Наша суперцель</h2>
@@ -211,6 +233,7 @@ const ApplicationForm = () => {
                         Мы уверены, что в ближайшие годы достигнем этого и будет здорово, если
                         вместе с тобой.
                     </div>
+
                     <button className="content__info__button">+7 (926) 433-14-16</button>
                 </div>
             </div>
