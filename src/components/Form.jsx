@@ -1,6 +1,6 @@
 import React from 'react';
-import { useForm, FormProvider, useFormContext  } from 'react-hook-form';
 import verif from '../assets/img/verif.svg';
+import { useFormContext } from 'react-hook-form';
 
 const errorStyle = {
     color: '#FF6666',
@@ -9,64 +9,101 @@ const errorStyle = {
     margin: 0,
 };
 
-export const Form = ({ defaultValues, children, onSubmit }) => {
-    const methods = useForm({ defaultValues });
-    const { handleSubmit, formState } = methods;
+export const Select = ({ title, name, rules, options, ...rest }) => {
+    const { register, formState, errors } = useFormContext();
     const { dirtyFields } = formState;
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            
-            {React.Children.map(children, (child) => {
-                return child.props.name
-                    ? React.createElement(child.type, {
-                          ...{
-                              ...child.props,
-                              register: methods.register,
-                              errors: methods.errors,
-                              key: child.props.name,
-                              dirtyFields: dirtyFields,
-                          },
-                      })
-                    : child;
-            })}
-        </form>
-    );
-};
-
-export const InputLarge = ({ register, errors, title, dirtyFields, name, rules, ...rest }) => {
-    return (
-        <div>
+        <div className="content__form__large_element">
             <div className="title">
                 <label forhtml={name}>{title}</label>
                 <span>{dirtyFields[name] ? <img src={verif} alt="" /> : null}</span>
             </div>
-            <input
+            <select
                 name={name}
+                className={errors && errors[name] ? 'large__invalid' : 'large__valid'}
                 ref={register(rules)}
-                className={errors[name] ? 'large__invalid' : 'large__valid'}
-                {...rest}
-            />
-            {errors[name] && <p style={errorStyle}>{errors[name].message}</p>}
+                {...rest}>
+                {options.map((value) => (
+                    <option key={value} value={value}>
+                        {value}
+                    </option>
+                ))}
+            </select>
+            {errors && errors[name] && <p style={errorStyle}>{errors[name].message}</p>}
         </div>
     );
 };
 
-export const InputShort = ({ register, errors, title, dirtyFields, name, rules, ...rest }) => {
-    console.log(name);
+export const Radio = ({ title, name, rules, options, ...rest }) => {
+    const { register, formState, errors } = useFormContext();
+    const { dirtyFields } = formState;
+
     return (
         <div className="content__form__short_element">
             <div className="title">
                 <label forhtml={name}>{title}</label>
                 <span>{dirtyFields[name] ? <img src={verif} alt="" /> : null}</span>
             </div>
+            <div className="content__form__gender">
+                {options.map((option) => (
+                    <div key={option} className="content__form__gender_radio_block">
+                        <input
+                            name={name}
+                            type="radio"
+                            value={option}
+                            ref={register(rules)}
+                            id={option}
+                            key={option}
+                            {...rest}
+                        />
+                        <label forhtml={option}>{option}</label>
+                    </div>
+                ))}
+            </div>
+            {errors && errors[name] && <p style={errorStyle}>{errors[name].message}</p>}
+        </div>
+    );
+};
+
+export const InputLarge = ({ title, name, rules, ...rest }) => {
+    const { register, formState, errors } = useFormContext();
+    const { dirtyFields } = formState;
+
+    return (
+        <div className="content__form__large_element">
+            <div className="title">
+                <label forhtml={name}>{title}</label>
+                <span>{dirtyFields && dirtyFields[name] ? <img src={verif} alt="" /> : null}</span>
+            </div>
+            <input
+                name={name}
+                ref={register(rules)}
+                className={errors && errors[name] ? 'large__invalid' : 'large__valid'}
+                {...rest}
+            />
+            {errors && errors[name] && <p style={errorStyle}>{errors[name].message}</p>}
+        </div>
+    );
+};
+
+export const InputShort = ({ title, name, rules, ...rest }) => {
+    const { register, formState, errors } = useFormContext();
+    const { dirtyFields } = formState;
+
+    return (
+        <div className="content__form__short_element">
+            <div className="title">
+                <label forhtml={name}>{title}</label>
+                <span>{dirtyFields && dirtyFields[name] ? <img src={verif} alt="" /> : null}</span>
+            </div>
             <input
                 name={name}
                 ref={register(rules)}
                 {...rest}
-                className={errors[name] ? 'short__invalid' : 'short__valid'}
+                className={errors && errors[name] ? 'short__invalid' : 'short__valid'}
             />
-            {errors[name] && <p style={errorStyle}>{errors[name].message}</p>}
+            {errors && errors[name] && <p style={errorStyle}>{errors[name].message}</p>}
         </div>
     );
 };

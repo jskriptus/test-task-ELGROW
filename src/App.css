@@ -30,6 +30,10 @@ header {
   align-items: center;
 }
 
+input {
+  outline: none;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -278,6 +282,7 @@ footer {
 .content__form__gender {
   display: flex;
   height: 80%;
+  justify-content: center;
 }
 
 .content__form__gender_radio_block {
